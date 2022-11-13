@@ -45,6 +45,7 @@ router.put('/follow',requireLogin,(req,res)=>{
     }
     )
 })
+
 router.put('/unfollow',requireLogin,(req,res)=>{
     User.findByIdAndUpdate(req.body.unfollowId,{
         $pull:{followers:req.user._id}
@@ -79,7 +80,6 @@ router.put('/updatepic',requireLogin,(req,res)=>{
 })
 
 
-
 router.post('/search-users',(req,res)=>{
     let userPattern = new RegExp("^"+req.body.query)
     User.find({email:{$regex:userPattern}})
@@ -91,7 +91,6 @@ router.post('/search-users',(req,res)=>{
     })
 
 })
-
 
 
 module.exports = router

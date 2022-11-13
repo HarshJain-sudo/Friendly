@@ -19,6 +19,11 @@ const transporter = nodemailer.createTransport(sendgridTransport({
     }
 }))
 
+// this is only for testing purpose
+// router.get('/protected',requireLogin,(req,res)=>{
+//     res.send("Hello World")
+// })
+
 router.post('/signup',(req,res)=>{
   const {name,email,password,pic} = req.body 
   if(!email || !password || !name){
@@ -74,7 +79,7 @@ router.post('/signin',(req,res)=>{
         .then(doMatch=>{
             if(doMatch){
                 // res.json({message:"successfully signed in"})
-               const token = jwt.sign({_id:savedUser._id},JWT_SECRET)
+               const token = jwt.sign({_id:savedUser._id},JWT_SECRET) 
                const {_id,name,email,followers,following,pic} = savedUser
                res.json({token,user:{_id,name,email,followers,following,pic}})
             }
@@ -142,4 +147,6 @@ router.post('/new-password',(req,res)=>{
 })
 
 
+
 module.exports = router
+

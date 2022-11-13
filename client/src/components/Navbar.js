@@ -9,7 +9,7 @@ const NavBar = ()=>{
      const {state,dispatch} = useContext(UserContext)
      const history = useHistory()
      useEffect(()=>{
-         M.Modal.init(searchModal.current)
+         M.Modal.init (searchModal.current)
      },[])
      const renderList = ()=>{
        if(state){
@@ -60,7 +60,7 @@ const NavBar = ()=>{
     return(
         <nav>
         <div className="nav-wrapper white">
-          <Link to={state?"/":"/signin"} className="brand-logo left">Instagram</Link>
+          <Link to={state?"/":"/signin"} className="brand-logo left">Friendly</Link>
           <ul id="nav-mobile" className="right">
              {renderList()}
   

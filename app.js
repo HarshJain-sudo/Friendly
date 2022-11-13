@@ -4,12 +4,14 @@ const mongoose  = require('mongoose')
 const PORT = process.env.PORT || 5000
 const {MONGOURI} = require('./config/keys')
 
+require('./models/user')
 
 mongoose.connect(MONGOURI,{
     useNewUrlParser:true,
     useUnifiedTopology: true
 
 })
+
 mongoose.connection.on('connected',()=>{
     console.log("conneted to mongo yeahh")
 })
@@ -33,6 +35,10 @@ if(process.env.NODE_ENV=="production"){
         res.sendFile(path.resolve(__dirname,'client','build','index.html'))
     })
 }
+ 
+// app.get('/',(req,res)=>{
+//     res.send("Hello World");
+// })
 
 app.listen(PORT,()=>{
     console.log("server is running on",PORT)

@@ -14,24 +14,9 @@ router.get('/allpost',requireLogin,(req,res)=>{
         res.json({posts})
     }).catch(err=>{
         console.log(err)
-    })
-    
+    })  
 })
 
-router.get('/getsubpost',requireLogin,(req,res)=>{
-
-    // if postedBy in following
-    Post.find({postedBy:{$in:req.user.following}})
-    .populate("postedBy","_id name")
-    .populate("comments.postedBy","_id name")
-    .sort('-createdAt')
-    .then(posts=>{
-        res.json({posts})
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-})
 
 router.post('/createpost',requireLogin,(req,res)=>{
     const {title,body,pic} = req.body 
@@ -64,6 +49,7 @@ router.get('/mypost',requireLogin,(req,res)=>{
     })
 })
 
+
 router.put('/like',requireLogin,(req,res)=>{
     Post.findByIdAndUpdate(req.body.postId,{
         $push:{likes:req.user._id}
@@ -77,6 +63,7 @@ router.put('/like',requireLogin,(req,res)=>{
         }
     })
 })
+
 router.put('/unlike',requireLogin,(req,res)=>{
     Post.findByIdAndUpdate(req.body.postId,{
         $pull:{likes:req.user._id}
@@ -91,6 +78,21 @@ router.put('/unlike',requireLogin,(req,res)=>{
     })
 })
 
+
+router.get('/getsubpost',requireLogin,(req,res)=>{
+
+    // if postedBy in following
+    Post.find({postedBy:{$in:req.user.following}})
+    .populate("postedBy","_id name")
+    .populate("comments.postedBy","_id name")
+    .sort('-createdAt')
+    .then(posts=>{
+        res.json({posts})
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+})
 
 router.put('/comment',requireLogin,(req,res)=>{
     const comment = {
